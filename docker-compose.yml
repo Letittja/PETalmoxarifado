@@ -1,0 +1,49 @@
+services:
+  # --- Gateway (Nginx) ---
+  # Centraliza todas as chamadas do frontend para os backends
+  gateway:
+    build: ./services/gateway
+    ports:
+      - "${PORT_GATEWAY}:80"
+    depends_on:
+      - patrimonio-service
+      - emprestimo-service
+    networks:
+      - almoxarifado-net
+
+  # --- Serviço de Patrimônio ---
+  patrimonio-service:
+    build: ./services/patrimonio-service
+    env_file: .env
+    environment:
+      - DATABASE_URL=${DATABASE_PATRIMONIO_URL}
+    ports:
+      - "${PORT_PATRIMONIO}:${PORT_PATRIMONIO}"
+    networks:
+      - almoxarifado-net
+
+  # --- Serviço de Empréstimo/Estoque ---
+  emprestimo-service:
+    build: ./services/emprestimo-service
+    env_file: .env
+    environment:
+      - DATABASE_URL=${DATABASE_EMPRESTIMO_URL}
+      - RABBITMQ_URL=${RABBITMQ_URL}
+    ports:
+      - "${PORT_EMPRESTIMO}:${PORT_EMPRESTIMO}"
+    networks:
+      - almoxarifado-net
+
+  # --- Frontend (React/Vite) ---
+  frontend:
+    build: ./frontend
+    ports:
+      - "${PORT_FRONTEND}:${PORT_FRONTEND}"
+    environment:
+      - VITE_API_URL=http://localhost:${PORT_GATEWAY}
+    networks:
+      - almoxarifado-net
+
+networks:
+  almoxarifado-net:
+    driver: bridge
