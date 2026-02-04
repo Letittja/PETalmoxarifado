@@ -12,13 +12,25 @@ services:
       - almoxarifado-net
 
   # --- Serviço de Patrimônio ---
+  postgres-patrimonio:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: patrimonio
+      POSTGRES_USER: patrimonio_user
+      POSTGRES_PASSWORD: patrimonio_pass
+    volumes:
+      - postgres_patrimonio_data:/var/lib/postgresql/data
+      - ./services/patrimonio-service/schema_patrimonio.sql:/docker-entrypoint-initdb.d/schema_patrimonio.sql
+    networks:
+      - almoxarifado-net
+
+
   patrimonio-service:
     build: ./services/patrimonio-service
-    env_file: .env
-    environment:
-      - DATABASE_URL=${DATABASE_PATRIMONIO_URL}
+    depends_on:
+      - postgres-patrimonio
     ports:
-      - "${PORT_PATRIMONIO}:${PORT_PATRIMONIO}"
+      - "3001:3001"
     networks:
       - almoxarifado-net
 
@@ -47,3 +59,7 @@ services:
 networks:
   almoxarifado-net:
     driver: bridge
+
+
+volumes:
+  postgres_patrimonio_data:
