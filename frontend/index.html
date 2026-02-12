@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Almoxarifado</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <div class="login-image">
+                <img src="imagens/almoxarifado.png" alt="logo projeto">
+            </div>
+            <h1>Login</h1>
+        </div>
+        <div class="form-group-container">
+            <form action="http://127.0.0.1:3000/login" method="POST">
+                <label for="username">Usuário:</label>
+                <input type="text" id="username" name="username" required>
+
+                <label for="password">Senha:</label>
+                <div class="senha-container">
+                    <input type="password" id="password" name="password" required>
+
+                    <span class="toggle-senha" onclick="mostrarSenha()">
+                        <i class="fa-regular fa-eye"></i>
+                    </span>
+                </div>
+                <button type="submit" class="login-btn">Entrar</button>
+            </form>
+        </div>
+    </div>
+
+   
+    <script>
+        function mostrarSenha() {
+            var senha = document.getElementById("password");
+            var icone = document.querySelector(".toggle-senha i");
+
+            if (senha.type === "password") {
+                senha.type = "text";
+                icone.classList.remove("fa-eye");
+                icone.classList.add("fa-eye-slash");
+            } else {
+                senha.type = "password";
+                icone.classList.remove("fa-eye-slash");
+                icone.classList.add("fa-eye");
+            }
+        }
+    </script>
+</body>
+</html>

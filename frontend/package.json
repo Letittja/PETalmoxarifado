@@ -1,14 +1,12 @@
 {
   "name": "frontend",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Frontend Almoxarifado PET",
+  "main": "server.js",
   "scripts": {
-    "dev": "node -e \"const http = require('http'); http.createServer((req, res) => { res.writeHead(200); res.end('Frontend do Almoxarifado Online!'); }).listen(5173, '0.0.0.0'); console.log('Servidor de teste simulando Vite na porta 5173');\" --"
+    "start": "node server.js",
+    "dev": "node server.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "express": "^5.2.1"
   }

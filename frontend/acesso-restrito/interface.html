@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <!-- Definição do conjunto de caracteres e da visualização -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Título da página exibido na aba do navegador -->
+    <title>Almoxarifado</title>
+    <!-- Inclusão do arquivo CSS para a estilização da interface -->
+    <link rel="stylesheet" href="interface.css">
+    <!-- Inclusão de scripts JS, com defer para execução após o carregamento da página -->
+    <script src="interface.js" defer></script>
+</head>
+
+<body>
+    <!-- =============== Navigation ================ -->
+    <div class="container">
+        <!-- Menu de navegação lateral -->
+        <div class="navigation">
+            <ul>
+                <!-- Item de navegação com ícone e título -->
+                <li>
+                    <a href="#">
+                        <span class="icon">
+                            <ion-icon name="file-tray-stacked-outline"></ion-icon>
+                        </span>
+                        <span class="title">Almoxarifado</span>
+                    </a>
+                </li>
+
+                <!-- Outros itens do menu de navegação -->
+                <li>
+                    <a href="#" id="show_home">
+                        <span class="icon">
+                            <ion-icon name="home-outline"></ion-icon>
+                        </span>
+                        <span class="title">Painel</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="show_user">
+                        <span class="icon">
+                            <ion-icon name="people-outline"></ion-icon>
+                        </span>
+                        <span class="title">Membros</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="show_stock">
+                        <span class="icon">
+                            <ion-icon name="cart-outline"></ion-icon>
+                        </span>
+                        <span class="title">Estoque</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="show_manage_inventory">
+                        <span class="icon">
+                            <ion-icon name="add"></ion-icon>
+                        </span>
+                        <span class="title">Gerenciar Material</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="show_pedido">
+                        <span class="icon">
+                            <ion-icon name="remove"></ion-icon>
+                        </span>
+                        <span class="title">Retirar Material</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="show_request">
+                        <span class="icon">
+                            <ion-icon name="lock-closed-outline"></ion-icon>
+                        </span>
+                        <span class="title">Senha</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon">
+                            <ion-icon name="log-out-outline"></ion-icon>
+                        </span>
+                        <span class="title">Sair</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- ========================= Main ==================== -->
+        <div class="main" id="main-content">
+            <!-- Barra superior com menu e campo de pesquisa -->
+            <div class="topbar">
+                <div class="toggle">
+                    <ion-icon name="menu-outline"></ion-icon>
+                </div>
+
+                <div class="search">
+                    <label>
+                        <input type="text" placeholder="Procure aqui">
+                        <ion-icon name="search-outline"></ion-icon>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- ======================= HOME ================== -->
+            <div id="home_content" style="display: block;">
+                <!-- ======================= Cards ================== -->
+                <div class="cardBox">
+                    <!-- Card de usuários cadastrados -->
+                    <div class="card">
+                        <div>
+                            <div class="numbers">15</div>
+                            <div class="cardName">Usuários Cadastrados</div>
+                        </div>
+
+                        <div class="iconBx">
+                            <ion-icon name="finger-print-outline"></ion-icon>
+                        </div>
+                    </div>
+
+                    <!-- Card de itens em estoque -->
+                    <div class="card">
+                        <div>
+                            <div class="numbers">285</div>
+                            <div class="cardName">Itens em Estoque</div>
+                        </div>
+
+                        <div class="iconBx">
+                            <ion-icon name="cart-outline"></ion-icon>
+                        </div>
+                    </div>
+
+                    <!-- Card de empréstimos ativos -->
+                    <div class="card">
+                        <div>
+                            <div class="numbers">4</div>
+                            <div class="cardName">Empréstimos Ativos</div>
+                        </div>
+
+                        <div class="iconBx">
+                            <ion-icon name="repeat-outline"></ion-icon>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ================ Order Details List ================= -->
+                <div class="details">
+                    <div class="recentOrders">
+                        <!-- Cabeçalho da seção de empréstimos recentes -->
+                        <div class="cardHeader">
+                            <h2>Empréstimos Recentes</h2>
+                            <a href="#" class="btn">Ver Todos</a>
+                        </div>
+
+                        <!-- Tabela com detalhes de empréstimos -->
+                        <table>
+                            <thead>
+                                <tr>
+                                    <td>Nome</td>
+                                    <td>Código</td>
+                                    <td>Quantidade</td>
+                                    <td>Status</td>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <!-- Linhas da tabela com empréstimos recentes -->
+                                <tr>
+                                    <td>Monitor</td>
+                                    <td>0002</td>
+                                    <td>1</td>
+                                    <td><span class="status available">Disponível</span></td>
+                                </tr>
+
+                                <tr>
+                                    <td>Mouse sem Fio</td>
+                                    <td>0078</td>
+                                    <td>1</td>
+                                    <td><span class="status loan">Emprestado</span></td>
+                                </tr>
+
+                                <tr>
+                                    <td>Baralho Uno</td>
+                                    <td>0100</td>
+                                    <td>3</td>
+                                    <td><span class="status overdue">Atrasado</span></td>
+                                </tr>
+
+                                <tr>
+                                    <td>Caixa 4 LEGO</td>
+                                    <td>0004</td>
+                                    <td>1</td>
+                                    <td><span class="status available">Disponível</span></td>
+                                </tr>
+
+                                <tr>
+                                    <td>Calculadora Científica</td>
+                                    <td>0090</td>
+                                    <td>1</td>
+                                    <td><span class="status loan">Emprestado</span></td>
+                                </tr>
+
+                                <tr>
+                                    <td>Placa Arduíno</td>
+                                    <td>0800</td>
+                                    <td>1</td>
+                                    <td><span class="status overdue">Atrasado</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- ================= New Customers ================ -->
+                    <div class="recentCustomers">
+                        <!-- Cabeçalho da seção de usuários recentes -->
+                        <div class="cardHeader">
+                            <h2>Usuários Recentes</h2>
+                        </div>
+
+                        <!-- Tabela com os usuários recentes -->
+                        <table>
+                            <tr>
+                                <td width="60px">
+                                    <div class="imgBx"><img src="../imagens/letittja.png" alt=""></div>
+                                </td>
+                                <td>
+                                    <h4>Letittja</h4>
+                                </td>
+                            </tr>
+
+                            <!-- Repetição de entradas de usuários -->
+                            <tr>
+                                <td width="60px">
+                                    <div class="imgBx"><img src="../imagens/letittja.png" alt=""></div>
+                                </td>
+                                <td>
+                                    <h4>Letittja</h4>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td width="60px">
+                                    <div class="imgBx"><img src="../imagens/letittja.png" alt=""></div>
+                                </td>
+                                <td>
+                                    <h4>Letittja</h4>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td width="60px">
+                                    <div class="imgBx"><img src="../imagens/letittja.png" alt=""></div>
+                                </td>
+                                <td>
+                                    <h4>Letittja</h4>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td width="60px">
+                                    <div class="imgBx"><img src="../imagens/letittja.png" alt=""></div>
+                                </td>
+                                <td>
+                                    <h4>Letittja</h4>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td width="60px">
+                                    <div class="imgBx"><img src="../imagens/letittja.png" alt=""></div>
+                                </td>
+                                <td>
+                                    <h4>Letittja</h4>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======================= MEMBROS ================== -->
+            <div id="user_content" style="display: none;">
+                <h2>Lista de Membros</h2>
+                <!-- Seção para Adicionar Usuário -->
+                <div id="add_user">
+                    <h3>Adicionar Novo Usuário</h3>
+                    <form id="add_user_form">
+                        <label for="username">Usuário:</label>
+                        <input type="text" id="username" name="username" required>
+                        <label for="password">Senha:</label>
+                        <input type="password" id="password" name="password" required>
+                        <label for="name">Nome:</label>
+                        <input type="text" id="name" name="name" required>
+                        <button type="submit">Adicionar Usuário</button>
+                    </form>
+                </div>
+
+                <!-- Seção para mostrar a lista de usuários-->
+                <div id="user_select">
+                <!-- MOSTRA O CONTEÚDO DA TABELA DE USUÁRIO -->
+                </div>
+
+                <!-- Área para mostrar mensagem de sucesso -->
+                <div id="success_message" style="display: none; color: green;">
+                    Usuário cadastrado com sucesso!
+                </div>
+            </div>
+
+            <!-- ======================= ESTOQUE ================== -->
+            <div id="stock_content" style="display: none;">
+                <h2>Estoque</h2>
+                <!-- Seção para os filtros -->
+                <div id="stock_filters">
+                    <label for="filter_type">Filtrar por:</label>
+                    <select id="filter_type">
+                        <option value="name">Nome</option>
+                        <option value="category">Categoria</option>
+                        <option value="id">ID</option>
+                    </select>
+                    <input type="text" id="filter_input" placeholder="Digite o valor para filtrar" />
+                    <button id="filter_button">Filtrar</button>
+                </div>
+                <!-- Seção para mostrar a lista de itens de estoque-->
+                <div id="stock_select">
+                    <!-- MOSTRA O CONTEÚDO DA TABELA DE ESTOQUE -->
+                </div>
+            </div>
+
+            <!-- ======================= GERENCIAR MATERIAL ================== -->
+            <div id="manage_content" style="display: none;">
+                <h2>Gerenciar Estoque</h2>
+            
+                <!-- Formulário para adicionar itens -->
+                <form id="add-item-form">
+                    <h3>Adicionar Item</h3>
+                    <label for="item-name">Nome do Item:</label>
+                    <input type="text" id="item-name" name="item-name" required><br>
+            
+                    <label for="item-quantity">Quantidade:</label>
+                    <input type="number" id="item-quantity" name="item-quantity" required><br>
+            
+                    <label for="item-category">Categoria:</label>
+                    <input type="text" id="item-category" name="item-category" required><br>
+            
+                    <label for="item-description">Descrição:</label>
+                    <textarea id="item-description" name="item-description" rows="4" cols="50" required></textarea><br>
+            
+                    <button type="button" id="add-item-btn">Adicionar Item</button>
+                </form>
+            
+                <!-- Formulário para deletar itens -->
+                <form id="delete-item-form">
+                    <h3>Deletar Item</h3>
+                    <label for="item-id">ID do Item:</label>
+                    <input type="number" id="item-id" name="item-id" required><br>
+            
+                    <button type="button" id="delete-item-btn">Deletar Item</button>
+                </form>
+            </div>
+
+            <!-- ======================= BAIXA EM ITENS ================== -->
+            <div id="retirar_content" style="display: none;">
+                <h2>Retirar Itens do Estoque</h2>
+                <form id="retirar-item-form">
+                    <label for="item-name-code">Nome ou Código do Item:</label>
+                    <input type="text" id="item-name-code" name="item-name-code" required><br>
+
+                    <label for="item-quantity-retirar">Quantidade a Retirar:</label>
+                    <input type="number" id="item-quantity-retirar" name="item-quantity-retirar" required><br>
+
+                    <!-- Campo oculto para armazenar o userId -->
+                    <input type="hidden" id="user-id" name="user-id">
+
+                    <button type="button" id="retirar-item-btn">Retirar Item</button>
+                </form>
+            </div>
+
+            <!-- ======================= PEDIDOS ================== -->
+            <div id="request_content" style="display: none;">
+                <h3>Filtrar Pedidos</h3>
+                <label for="filter-user-id">ID do Usuário:</label>
+                <input type="number" id="filter-user-id" placeholder="Digite o ID do usuário"><br><br>
+            
+                <label for="filter-item-id">ID do Item:</label>
+                <input type="number" id="filter-item-id" placeholder="Digite o ID do item"><br><br>
+            
+                <label for="filter-day">Dia:</label>
+                <input type="date" id="filter-day"><br><br>
+            
+                <button id="filter_button">Aplicar Filtros</button>
+            
+                <h3>Tabela de Pedidos</h3>
+                <table id="pedidos-tabela" border="1" style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr>
+                            <th>ID do Pedido</th>
+                            <th>Usuário</th>
+                            <th>Item</th>
+                            <th>Quantidade</th>
+                            <th>Data</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Os pedidos serão inseridos aqui via JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== ionicons ======= -->
+    <!-- Inclusão dos ícones da biblioteca Ionicons -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+    <!-- =========== Scripts =========  -->
+    <script src="interface.js"></script>
+    <script src="navigating.js"></script>
+    <script src="alterar.js"></script>
+</body>
+
+</html>
