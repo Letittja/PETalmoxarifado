@@ -1,0 +1,29 @@
+services:
+  # Postgres local só para DEV (banco do emprestimo)
+  postgres-emprestimo:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - pg_emprestimo_data:/var/lib/postgresql/data
+      - ./services/emprestimo-service/schema_emprestimo.sql:/docker-entrypoint-initdb.d/01_schema_emprestimo.sql:ro
+    networks:
+      - almoxarifado-net
+
+  # Seu microserviço usando o Postgres local
+  emprestimo-service:
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@postgres-emprestimo:5432/postgres?schema=emprestimo
+    depends_on:
+      - postgres-emprestimo
+
+volumes:
+  pg_emprestimo_data:
+
+networks:
+  almoxarifado-net:
+    driver: bridge

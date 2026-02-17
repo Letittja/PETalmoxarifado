@@ -47,3 +47,4 @@ services:
 networks:
   almoxarifado-net:
     driver: bridge
+    
