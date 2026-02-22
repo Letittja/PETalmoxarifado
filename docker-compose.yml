@@ -1,4 +1,5 @@
 services:
+
   # --- Gateway (Nginx) ---
   # Centraliza todas as chamadas do frontend para os backends
   gateway:
@@ -6,6 +7,7 @@ services:
     ports:
       - "${PORT_GATEWAY}:80"
     depends_on:
+      - login-service
       - patrimonio-service
       - emprestimo-service
     networks:
@@ -31,6 +33,32 @@ services:
       - postgres-patrimonio
     ports:
       - "3001:3001"
+    networks:
+      - almoxarifado-net
+
+  # --- Postgres para Login Service ---
+  postgres-login:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: login_db
+      POSTGRES_USER: login_user
+      POSTGRES_PASSWORD: login_pass
+    volumes:
+      - postgres_login_data:/var/lib/postgresql/data
+      - ./services/login-service/schema_users.sql:/docker-entrypoint-initdb.d/schema_users.sql
+    networks:
+      - almoxarifado-net
+
+  login-service:
+    build: ./services/login-service
+    ports:
+      - "3000:3000"
+    env_file: .env
+    environment:
+      - PORT=3000
+      - JWT_SECRET=${JWT_SECRET}
+    depends_on:
+      - postgres-login
     networks:
       - almoxarifado-net
 
@@ -63,3 +91,4 @@ networks:
 
 volumes:
   postgres_patrimonio_data:
+  postgres_login_data:
