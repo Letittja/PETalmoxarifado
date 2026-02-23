@@ -9,5 +9,3 @@ CREATE TABLE IF NOT EXISTS public.users (
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT now()
 );
 
--- optional: index on email (unique already creates index)
-

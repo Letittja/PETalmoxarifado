@@ -1,20 +1,34 @@
 const express = require('express');
-const cors = require('cors');
+const { Pool } = require('pg');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const cors = require('cors');
 require('dotenv').config();
 
-const db = require('./db');
-
 const app = express();
-const PORT = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
+
 const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret_key';
 
-// Middlewares
+// middleware
 app.use(cors());
 app.use(express.json());
 
-// Simple auth middleware (inlined for minimal structure)
+// conexão com o Postgres
+const db = new Pool({
+  host: 'postgres-login',
+  user: 'login_user',
+  password: 'login_pass',
+  database: 'login_db',
+  port: 5432
+});
+
+// teste de conexão
+db.query('SELECT 1')
+  .then(() => console.log('Postgres conectado com sucesso!'))
+  .catch(err => console.error('Erro ao conectar no Postgres', err));
+
+// Auth middleware
 function authMiddleware(req, res, next) {
   try {
     const header = req.headers.authorization;
@@ -31,7 +45,10 @@ function authMiddleware(req, res, next) {
   }
 }
 
-// Routes (inlined — simplest functional structure)
+// Rota raiz
+app.get('/', (req, res) => {
+  res.send('API de Login do Almoxarifado está VIVA!');
+});
 
 // Health check
 app.get('/health', (req, res) => {
@@ -39,7 +56,7 @@ app.get('/health', (req, res) => {
 });
 
 // POST /api/auth/login
-app.post('/api/auth/login', async (req, res) => {
+app.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
     if (!email || !password) return res.status(400).json({ message: 'Email e senha são obrigatórios' });
@@ -61,7 +78,7 @@ app.post('/api/auth/login', async (req, res) => {
 });
 
 // POST /api/auth/register
-app.post('/api/auth/register', async (req, res) => {
+app.post('/register', async (req, res) => {
   try {
     const { email, password, name } = req.body;
     if (!email || !password || !name) return res.status(400).json({ message: 'Email, senha e nome são obrigatórios' });
@@ -80,13 +97,12 @@ app.post('/api/auth/register', async (req, res) => {
 });
 
 // POST /api/auth/logout (protected)
-app.post('/api/auth/logout', authMiddleware, (req, res) => {
-  // stateless JWT: to really invalidate you'd need blacklist; keep simple
+app.post('/logout', authMiddleware, (req, res) => {
   res.json({ message: 'Logout realizado com sucesso' });
 });
 
-// GET /api/auth/me (protected)
-app.get('/api/auth/me', authMiddleware, async (req, res) => {
+// GET /me (protected)
+app.get('/me', authMiddleware, async (req, res) => {
   try {
     const result = await db.query('SELECT id, email, name FROM public.users WHERE id = $1', [req.userId]);
     const user = result.rows[0];
@@ -98,4 +114,7 @@ app.get('/api/auth/me', authMiddleware, async (req, res) => {
   }
 });
 
-app.listen(PORT, () => console.log(`Login service rodando na porta ${PORT}`));
+// servidor
+app.listen(port, () => {
+  console.log(`Rodando na porta ${port}`);
+});
